@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const Tab = (props) => {
-    const [ index, setIndex ] = useState(0);
+    const [ selected, setSelected ] = useState(0);
     
     const tabContainerStyle = {
         display: "flex",
@@ -19,6 +19,16 @@ const Tab = (props) => {
         marginRight: "10px"
     }
 
+    const selectedStyle = {
+        backgroundColor: "black",
+        color: "white",
+        border: "1px solid #DFDFDF",
+        height: "30px",
+        width: "80px",
+        fontSize: "16px",
+        marginRight: "10px"
+    }
+
     const contentStyle = {
         padding: "10px",
         width: "400px",
@@ -28,8 +38,8 @@ const Tab = (props) => {
         textAlign: "left"
     }
     
-    const onClickHandler = (e, index) => {
-        setIndex(index);
+    const onClickHandler = (e, selected) => {
+        setSelected(selected);
 
         // last item: change color of button when clicked on to black
     }
@@ -39,12 +49,12 @@ const Tab = (props) => {
             <div id="tab-container" style={ tabContainerStyle }>
                 {
                     props.data.map( (item, index) => { 
-                        return <button style={ tabStyle } onClick={ (e) => onClickHandler(e, index) }>{ item.header }</button>
+                        return <button key={ index } style={ index===selected ? selectedStyle  : tabStyle } onClick={ (e) => onClickHandler(e, index) }>{ item.header }</button>
                     })
                 }
             </div>
             <p style={ contentStyle }>
-                { props.data[index].content }
+                { props.data[selected].content }
             </p>
         </div>
     );
